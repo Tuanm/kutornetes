@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bbb-core-dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bbb-dev
+  template:
+    metadata:
+      labels:
+        app: bbb-dev
+    spec:
+      containers:
+      - name: bbb-core-dev
+        image: tuanm/bbb-core-dev:1.0
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        env:
+        - name: spring.redis.host
+          value: "bbb-dev"
+        - name: spring.redis.port
+          value: "6379"
+        ports:
+        - containerPort: 1900
+          name: core-port

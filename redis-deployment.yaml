@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bbb-redis-dev
+spec:
+  selector:
+    matchLabels:
+      app: bbb-dev
+  template:
+    metadata:
+      labels:
+        app: bbb-dev
+    spec:
+      containers:
+      - name: bbb-redis-dev
+        image: redis:7.0.9-alpine
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6379
+          name: redis-port
